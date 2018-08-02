@@ -1,10 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns = "http://www.springframework.org/schema/beans"
    xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+   xmlns:context = "http://www.springframework.org/schema/context"
    xsi:schemaLocation = "http://www.springframework.org/schema/beans
-   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+<context:annotation-config/>
+
    <bean id="pointBean" class="com.deloitte.pojo.Point"> 
    <property name="x" value="4"/> 
+   <property name="y" value="8"/> 
+      </bean>
+   
+   <bean id="helloWorld" class="com.deloitte.pojo.HelloWorld"> 
+   <property name="message1" value="Hello World!"/> 
+   <property name="message2" value="Hello 2nd world!"/> 
+      </bean>
+   
+   <bean id="helloIndia" class="com.deloitte.pojo.HelloIndia" parent="helloWorld"> 
+   <property name="message1" value="Hello India!"/> 
+   <property name="message3" value="Namaste India!"/> 
    </bean> 
+   
+   <!-- CDI=CONSTRUCTOR BASED DEPENDENCY  INJECTION -->
+   <bean id="textEditorCDI" class="com.deloitte.pojo.TextEditor"> 
+   <constructor-arg ref="spellChecker"/> 
+   <property name="name" value="Deloitte Text Editor" />
+   </bean>
+      <!-- SDI=SETTER BASED DEPENDENCY  INJECTION -->
+   <bean id="textEditorSDI" class="com.deloitte.pojo.TextEditor"> 
+   <property name="spellChecker" ref="spellChecker" />
+   <property name="name" value="Deloitte Text Editor" />
+    </bean>
+    
+   <bean id="textEditorAWbN" class="com.deloitte.pojo.TextEditor" autowire="byName"> 
+   <property name="spellChecker" ref="spellChecker" />
+   <property name="name" value="Deloitte Text Editor" />
+    </bean>  <!--  checks for field name -->
+    
+     <bean id="textEditorAWbT" class="com.deloitte.pojo.TextEditor" autowire="byType"> 
+   <property name="spellChecker" ref="spellChecker" />
+   <property name="name" value="Deloitte Text Editor" />
+    </bean>  <!-- checks for field type. used when field name doesnt match but type does (like spellChecker1)-->
+   
+   
+   
+    <bean id="textEditorAWbC" class="com.deloitte.pojo.TextEditor" autowire="constructor"> 
+   <property name="name" value="Deloitte Text Editor" />
+    </bean>  <!-- checks for field type. used when field name doesnt match but type does (like spellChecker1)-->
+   
+   
+   
+   
+   <bean id="spellChecker" class="com.deloitte.pojo.SpellChecker">  
+   </bean>
+   
+    
    
    </beans>

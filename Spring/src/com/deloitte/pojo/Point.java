@@ -8,6 +8,7 @@ public class Point {
 	}
 	public void setX(int x) {
 		this.x = x;
+		System.out.println("");
 	}
 	public int getY() {
 		return y;
